@@ -9,7 +9,7 @@ on:
       dry_run:
         description: "Preview only (don't add anything)"
         type: boolean
-        default: true
+        default: false
 
 jobs:
   sync:
