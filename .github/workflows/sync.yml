@@ -3,7 +3,8 @@ name: Sync Spotify playlists
 
 on:
   schedule:
-    - cron: "*/30 * * * *" # every 30 minutes (GitHub may run it a few minutes late)
+    - cron: "6 * * * *"
+    - cron: "36 * * * *" 
   workflow_dispatch: # lets you run it by hand from the Actions tab
     inputs:
       dry_run:
