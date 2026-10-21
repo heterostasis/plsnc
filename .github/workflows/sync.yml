@@ -1,0 +1,30 @@
+# Save this in your repo at:  .github/workflows/sync.yml
+name: Sync Spotify playlists
+
+on:
+  schedule:
+    - cron: "*/30 * * * *" # every 30 minutes (GitHub may run it a few minutes late)
+  workflow_dispatch: # lets you run it by hand from the Actions tab
+    inputs:
+      dry_run:
+        description: "Preview only (don't add anything)"
+        type: boolean
+        default: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python sync.py
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+          SOURCE_PLAYLISTS: ${{ secrets.SOURCE_PLAYLISTS }}
+          DEST_PLAYLIST: ${{ secrets.DEST_PLAYLIST }}
+          DRY_RUN: ${{ inputs.dry_run }}
