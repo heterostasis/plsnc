@@ -3,7 +3,8 @@ name: Sync Spotify playlists
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "26 * * * *"
+    - cron: "56 * * * *"
   workflow_dispatch: # lets you run it by hand from the Actions tab
     inputs:
       dry_run:
